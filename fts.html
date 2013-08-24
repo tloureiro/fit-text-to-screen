@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<title></title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+			
+			
+			setTimeout(adjust, 1);
+
+
+			holder = document.getElementById('holder');
+			holder.ondragover = function () {  return false; };
+			holder.ondragend = function () { return false; };
+			 
+			holder.ondrop = function (e) {
+				
+				e.preventDefault();
+
+				file = e.dataTransfer.files[0];
+				reader = new FileReader();
+				  
+				reader.onload = function (event) {
+
+					stag = document.getElementById('f');
+					
+					node = document.createTextNode("@font-face {font-family: 'fs';src: url('" + event.target.result + "') format('truetype');} #holder{ font-family: fs; }");
+					
+					if(stag.childNodes.length == 0){
+						stag.appendChild(node);
+					}else{
+						stag.replaceChild(node, stag.childNodes[0]);
+					}
+					
+				};
+
+				reader.readAsDataURL(file);
+
+				return false;
+			};
+		});
+		
+		function adjust(){
+			
+			if($('textarea').get(0).scrollWidth == $(window).width() &&
+			$('textarea').get(0).scrollHeight == $(window).height()
+			){
+				$('textarea').css('font-size', '+=2');
+			}
+			
+			if($('textarea').get(0).scrollWidth > $(window).width() ||
+			$('textarea').get(0).scrollHeight > $(window).height()
+			){
+				$('textarea').css('font-size', '-=2');
+			}
+			
+			
+			setTimeout(adjust, 1);
+		}		
+	
+	</script>
+	
+	<style>
+		body{
+			width:100%;
+			height:100%;
+			margin:0px;
+			padding:0px;
+			border:0px;
+			overflow:hidden;
+		}
+		textarea{
+			width:100%;
+			height:100%;
+			position:absolute;
+			border:none;
+			padding:0;
+			font-size: 30px;
+		}
+	</style>
+	
+	
+	<style id="f"></style>
+	
+</head>
+
+<body>
+	
+	<textarea id="holder" class="hover" wrap="off" spellcheck="false"></textarea>
+	
+</body>
+
+</html>
