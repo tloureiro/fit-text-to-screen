@@ -90,7 +90,6 @@
 			});
 
 			Mousetrap.bind(["alt+shift+u"], function() {
-
                             window.location.hash = ftsData.build();
                             showStatus(":P");
 			});
@@ -98,12 +97,13 @@
 
                         ftsData = (function() {
 
+                          persist = ["letter-spacing", "word-spacing", "text-align", "font-family", "color", "background-color"];
                           textArea = $("textarea");
                           var p = {};
 
                           p.build = function() {
                             var opts = {textarea: textArea.val(),
-                                        styles: textArea.getStyles()};
+                                        styles: textArea.getStyles(persist)};
                             return JSON.stringify(opts);
                           };
 
@@ -117,7 +117,6 @@
                           };
 
                           p.apply = function() {
-                            console.log(p);
                             var opts = p.read();
                             if (opts.textarea != null) {
                               textArea.val(opts.textarea);
