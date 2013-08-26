@@ -11,7 +11,7 @@
 
 	<script type="text/javascript">
 
-		var aligns = ["center", "right", "left"];
+		var aligns = ["left", "right", "center"];
 		var fonts = ["Georgia", "Book Antiqua", "Times New Roman", "Arial", "Arial Black", "Comic Sans MS", "Impact", "Lucida Sans Unicode", "Tahoma", "Trebuchet MS", "Verdana", "Courier New", "Lucida Console"];
 		var colors = ["white", "silver", "gray", "black", "red", "maroon", "yellow", "olive", "lime", "green", "aqua", "teal", "blue", "navy", "fuchsia", "purple"];
 		var bcolors = ["silver", "gray", "black", "red", "maroon", "yellow", "olive", "lime", "green", "aqua", "teal", "blue", "navy", "fuchsia", "purple", "white"];
@@ -89,9 +89,9 @@
 				showStatus("preset: " + preset);
 			});
 
-			Mousetrap.bind(["alt+shift+u"], function() {
-                            window.location.hash = ftsData.build();
-                            showStatus(":P");
+			Mousetrap.bind(["alt+shift+s"], function() {
+				window.location.hash = ftsData.build();
+				showStatus("Saved");
 			});
 
 
@@ -263,6 +263,7 @@ For help: Alt + Shift + h
 		<p><b>Alt + Shift + b:</b> Change background color</p>
 		<p><b>Alt + Shift + f:</b> Change font type</p>
 		<p><b>Alt + Shift + p:</b> Change background color and font color preset</p>
+		<p><b>Alt + Shift + s:</b> Save the current state. To recover just use the url provided</p>
 	</div>
 </body>
 
