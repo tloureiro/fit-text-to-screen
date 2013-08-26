@@ -6,16 +6,92 @@
 	<title></title>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script src="mousetrap.min.js"></script>
 	
 	<script type="text/javascript">
+		
+		var aligns = ["center", "right", "left"];
+		var fonts = ["Georgia", "Book Antiqua", "Times New Roman", "Arial", "Arial Black", "Comic Sans MS", "Impact", "Lucida Sans Unicode", "Tahoma", "Trebuchet MS", "Verdana", "Courier New", "Lucida Console"];
+		var colors = ["white", "silver", "gray", "black", "red", "maroon", "yellow", "olive", "lime", "green", "aqua", "teal", "blue", "navy", "fuchsia", "purple"];
+		var bcolors = ["silver", "gray", "black", "red", "maroon", "yellow", "olive", "lime", "green", "aqua", "teal", "blue", "navy", "fuchsia", "purple", "white"];
+		var presets = ["black;white", "white;#4183c4","#DEB887;#B22222", "#D08040;#FFD8B0","#87CEFA;#008080", "#FFD8B0;#D08040", "#C0B860;#506830", "white;black"];
+
+		
 
 		$(document).ready(function(){
+			
+			Mousetrap.bind(["alt+shift+right"], function() {
+				$("textarea").css("letter-spacing", "+=1");
+				showStatus("letter-spacing: " + $("textarea").css("letter-spacing"));
+			});
+			Mousetrap.bind(["alt+shift+left"], function() {
+				$("textarea").css("letter-spacing", "-=1");
+				showStatus("letter-spacing: " + $("textarea").css("letter-spacing"));
+			});
+			
+			Mousetrap.bind(["alt+shift+up"], function() {
+				$("textarea").css("word-spacing", "+=1");
+				showStatus("word-spacing: " + $("textarea").css("word-spacing"));
+			});
+			Mousetrap.bind(["alt+shift+down"], function() {
+				$("textarea").css("word-spacing", "-=1");
+				showStatus("word-spacing: " + $("textarea").css("word-spacing"));
+			});
+			
+			Mousetrap.bind(["alt+shift+a"], function() {
+				
+				align = aligns.shift();
+				$("textarea").css("text-align", align);
+				aligns.push(align);
+				
+				showStatus("text-align: " + $("textarea").css("text-align"));
+			});
+			
+			Mousetrap.bind(["alt+shift+f"], function() {
+				
+				font = fonts.shift();
+				$("textarea").css("font-family", font);
+				fonts.push(font);
+				
+				showStatus("font-family: " + $('textarea').css("font-family"));
+			});	
+			
+			Mousetrap.bind(["alt+shift+c"], function() {
+				
+				color = colors.shift();
+				$("textarea").css("color", color);
+				colors.push(color);
+				
+				showStatus("color: " + color);
+			});
+			
+			Mousetrap.bind(["alt+shift+b"], function() {
+				
+				bcolor = bcolors.shift();
+				$("textarea").css("background-color", bcolor);
+				bcolors.push(bcolor);
+				
+				showStatus("background-color: " + bcolor);
+			});
+			
+			Mousetrap.bind(["alt+shift+h"], function() {
+				$("#help").toggle();
+			});
+
+			Mousetrap.bind(["alt+shift+p"], function() {
+				
+				preset = presets.shift();
+				$("textarea").css("background-color", preset.split(";")[0]);
+				$("textarea").css("color", preset.split(";")[1]);
+				presets.push(preset);
+				
+				showStatus("preset: " + preset);
+			});			
 			
 			
 			setTimeout(adjust, 1);
 
-
-			holder = document.getElementById('holder');
+			holder = document.getElementById("holder");
 			holder.ondragover = function () {  return false; };
 			holder.ondragend = function () { return false; };
 			 
@@ -28,9 +104,9 @@
 				  
 				reader.onload = function (event) {
 
-					stag = document.getElementById('f');
+					stag = document.getElementById("f");
 					
-					node = document.createTextNode("@font-face {font-family: 'fs';src: url('" + event.target.result + "') format('truetype');} #holder{ font-family: fs; }");
+					node = document.createTextNode("@font-face {font-family: 'fs';src: url('" + event.target.result + "') format('truetype');} textarea{ font-family: fs; }");
 					
 					if(stag.childNodes.length == 0){
 						stag.appendChild(node);
@@ -48,21 +124,27 @@
 		
 		function adjust(){
 			
-			if($('textarea').get(0).scrollWidth == $(window).width() &&
-			$('textarea').get(0).scrollHeight == $(window).height()
+			if($("textarea").get(0).scrollWidth == $(window).width() &&
+			$("textarea").get(0).scrollHeight == $(window).height()
 			){
-				$('textarea').css('font-size', '+=2');
+				$("textarea").css("font-size", "+=2");
 			}
 			
-			if($('textarea').get(0).scrollWidth > $(window).width() ||
-			$('textarea').get(0).scrollHeight > $(window).height()
+			if($("textarea").get(0).scrollWidth > $(window).width() ||
+			$("textarea").get(0).scrollHeight > $(window).height()
 			){
-				$('textarea').css('font-size', '-=2');
+				$("textarea").css("font-size", "-=2");
 			}
 			
 			
 			setTimeout(adjust, 1);
-		}		
+		}
+		
+		function showStatus(status){
+			$("#status").empty();
+			$("#status").append(status);
+			$("#status").fadeIn("slow", function(){$(this).fadeOut("slow");});
+		}
 	
 	</script>
 	
@@ -82,6 +164,33 @@
 			border:none;
 			padding:0;
 			font-size: 30px;
+			text-align: center;
+		}
+		#status{
+			width: 150px;
+			position: absolute;
+			right: 0px;
+			padding: 10px;
+			text-align: center;
+			display: none;
+			background-color: gray;
+			color: white;
+		}
+		#help{
+			width: 230px;
+			position: absolute;
+			right: 0px;
+			padding: 0px 10px 10px 20px;
+			display: block;
+			background-color: gray;
+			color: white;
+			font-size: 12px;
+			line-height: 12px;
+			display: none;
+		}
+		#help h4{
+			text-align: center;
+			font-size: 15px;
 		}
 	</style>
 	
@@ -92,13 +201,26 @@
 
 <body>
 	
-	<textarea id="holder" class="hover" wrap="off" spellcheck="false">Just type anything and your text
-will fit the screen as you type.
+	<textarea id="holder" class="hover mousetrap" wrap="off" spellcheck="false">Just type anything here and your 
+text will fit the screen as you type.
 
 To change the font, just drag 
 the font file into this textarea
+
+For help: Alt + Shift + h
 	</textarea>
-	
+	<div id="status"></div>
+	<div id="help">
+		<h4><b>Shortcut list</b></h4>
+		<p><b>Alt + Shift + h:</b> Show/Hide this help box</p>
+		<p><b>Alt + Shift + Up/Down:</b> Word spacing</p>
+		<p><b>Alt + Shift + Left/Right:</b> Letter spacing</p>
+		<p><b>Alt + Shift + a:</b> Change text alignment</p>
+		<p><b>Alt + Shift + c:</b> Change font color</p>
+		<p><b>Alt + Shift + b:</b> Change background color</p>
+		<p><b>Alt + Shift + f:</b> Change font type</p>
+		<p><b>Alt + Shift + p:</b> Change background color and font color preset</p>
+	</div>
 </body>
 
 </html>
