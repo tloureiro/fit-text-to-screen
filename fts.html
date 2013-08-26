@@ -7,6 +7,7 @@
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 	<script src="mousetrap.min.js"></script>
+	<script src="jquery.copycss.js"></script>
 
 	<script type="text/javascript">
 
@@ -88,6 +89,48 @@
 				showStatus("preset: " + preset);
 			});
 
+			Mousetrap.bind(["alt+shift+u"], function() {
+
+                            window.location.hash = ftsData.build();
+                            showStatus(":P");
+			});
+
+
+                        ftsData = (function() {
+
+                          textArea = $("textarea");
+                          var p = {};
+
+                          p.build = function() {
+                            var opts = {textarea: textArea.val(),
+                                        styles: textArea.getStyles()};
+                            return JSON.stringify(opts);
+                          };
+
+                          p.read = function() {
+                            var data = window.location.hash.substring(1);
+                            if (data == "") {
+                              return {};
+                            } else {
+                              return JSON.parse(data);
+                            }
+                          };
+
+                          p.apply = function() {
+                            console.log(p);
+                            var opts = p.read();
+                            if (opts.textarea != null) {
+                              textArea.val(opts.textarea);
+                            }
+                            if (opts.styles != null) {
+                              textArea.css(opts.styles);
+                            }
+                          };
+
+                          return p;
+                        })();
+
+                        ftsData.apply();
 
 			setTimeout(adjust, 1);
 
