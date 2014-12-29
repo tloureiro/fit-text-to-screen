@@ -129,11 +129,11 @@
         textArea = $("textarea");
         var p = {};
 
-<<<<<<< HEAD
         p.build = function() {
           var opts = {textarea: textArea.val(),
                       styles: textArea.getStyles(persist)};
-          return JSON.stringify(opts);
+          var optString = JSON.stringify(opts);
+          return $.base64.encode(optString);
         };
 
         p.read = function() {
@@ -141,27 +141,10 @@
           if (data == "") {
             return {};
           } else {
+            data = $.base64.decode(data);
             return JSON.parse(data);
           }
         };
-=======
-                          p.build = function() {
-                            var opts = {textarea: textArea.val(),
-                                        styles: textArea.getStyles(persist)};
-                            var optString = JSON.stringify(opts);
-                            return $.base64.encode(optString);
-                          };
-
-                          p.read = function() {
-                            var data = window.location.hash.substring(1);
-                            if (data == "") {
-                              return {};
-                            } else {
-                              data = $.base64.decode(data);
-                              return JSON.parse(data);
-                            }
-                          };
->>>>>>> 1ac5907a49a155172d563aa1c13dc7600b19dda9
 
         p.apply = function() {
           var opts = p.read();
