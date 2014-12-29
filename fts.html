@@ -20,6 +20,15 @@
 
 
 		$(document).ready(function(){
+      
+      initialSetup = function(){
+        $("textarea").get(0).style.width = $(window).width() + "px";
+        $("textarea").get(0).style.height = $(window).height() + "px";
+        $("textarea").get(0).style.left = "0px";
+      }
+      initialSetup();
+      
+      window.onresize = initialSetup;
 
 			Mousetrap.bind(["alt+shift+right"], function() {
 				$("textarea").css("letter-spacing", "+=1");
@@ -38,6 +47,24 @@
 				$("textarea").css("word-spacing", "-=1");
 				showStatus("word-spacing: " + $("textarea").css("word-spacing"));
 			});
+  
+			Mousetrap.bind(["alt+shift+9"], function() {
+				$("textarea").css("width", "-=2").css("left", "+=1");
+        showStatus("width: " + $("textarea").css("width"));
+			});
+			Mousetrap.bind(["alt+shift+0"], function() {
+				$("textarea").css("width", "+=2").css("left", "-=1");
+        showStatus("width: " + $("textarea").css("width"));
+			});
+			Mousetrap.bind(["alt+shift+7"], function() {
+				$("textarea").css("height", "-=2").css("top", "+=1");
+        showStatus("height: " + $("textarea").css("height"));
+			});
+			Mousetrap.bind(["alt+shift+8"], function() {
+				$("textarea").css("height", "+=2").css("top", "-=1");
+        showStatus("height: " + $("textarea").css("height"));				
+			});      
+            
 
 			Mousetrap.bind(["alt+shift+a"], function() {
 
@@ -95,42 +122,42 @@
 			});
 
 
-                        ftsData = (function() {
+      ftsData = (function() {
 
-                          persist = ["letter-spacing", "word-spacing", "text-align", "font-family", "color", "background-color"];
-                          textArea = $("textarea");
-                          var p = {};
+        persist = ["letter-spacing", "word-spacing", "text-align", "font-family", "color", "background-color", "width", "height", "top", "left"];
+        textArea = $("textarea");
+        var p = {};
 
-                          p.build = function() {
-                            var opts = {textarea: textArea.val(),
-                                        styles: textArea.getStyles(persist)};
-                            return JSON.stringify(opts);
-                          };
+        p.build = function() {
+          var opts = {textarea: textArea.val(),
+                      styles: textArea.getStyles(persist)};
+          return JSON.stringify(opts);
+        };
 
-                          p.read = function() {
-                            var data = window.location.hash.substring(1);
-                            if (data == "") {
-                              return {};
-                            } else {
-                              return JSON.parse(data);
-                            }
-                          };
+        p.read = function() {
+          var data = window.location.hash.substring(1);
+          if (data == "") {
+            return {};
+          } else {
+            return JSON.parse(data);
+          }
+        };
 
-                          p.apply = function() {
-                            var opts = p.read();
-                            if (opts.textarea != null) {
-                              textArea.val(opts.textarea);
-                            }
-                            if (opts.styles != null) {
-                              textArea.css(opts.styles);
-                            }
-                          };
+        p.apply = function() {
+          var opts = p.read();
+          if (opts.textarea != null) {
+            textArea.val(opts.textarea);
+          }
+          if (opts.styles != null) {
+            textArea.css(opts.styles);
+          }
+        };
 
-                          return p;
-                        })();
+        return p;
+      })();
 
-                        ftsData.apply();
-                        window.location.hash = "";
+      ftsData.apply();
+      window.location.hash = "";
 
 			setTimeout(adjust, 1);
 
@@ -167,18 +194,17 @@
 
 		function adjust(){
 
-			if($("textarea").get(0).scrollWidth == $(window).width() &&
-			$("textarea").get(0).scrollHeight == $(window).height()
+      if($("textarea").get(0).scrollWidth == $('textarea').width() &&
+			$("textarea").get(0).scrollHeight == $('textarea').height()
 			){
 				$("textarea").css("font-size", "+=2");
 			}
 
-			if($("textarea").get(0).scrollWidth > $(window).width() ||
-			$("textarea").get(0).scrollHeight > $(window).height()
+      if($("textarea").get(0).scrollWidth > $('textarea').width()||
+			$("textarea").get(0).scrollHeight > $('textarea').height()
 			){
 				$("textarea").css("font-size", "-=2");
 			}
-
 
 			setTimeout(adjust, 1);
 		}
@@ -201,14 +227,17 @@
 			overflow:hidden;
 		}
 		textarea{
-			width:100%;
-			height:100%;
 			position:absolute;
 			border:none;
 			padding:0;
 			font-size: 30px;
 			text-align: center;
+      resize: none;
 		}
+    
+    textarea:focus{
+      outline: 0 none;
+    }
 		#status{
 			width: 150px;
 			position: absolute;
@@ -258,12 +287,14 @@ For help: Alt + Shift + h
 		<p><b>Alt + Shift + h:</b> Show/Hide this help box</p>
 		<p><b>Alt + Shift + Up/Down:</b> Word spacing</p>
 		<p><b>Alt + Shift + Left/Right:</b> Letter spacing</p>
+    <p><b>Alt + Shift + 9/0:</b> Width </p>
+    <p><b>Alt + Shift + 7/8:</b> Height </p>
 		<p><b>Alt + Shift + a:</b> Change text alignment</p>
 		<p><b>Alt + Shift + c:</b> Change font color</p>
 		<p><b>Alt + Shift + b:</b> Change background color</p>
 		<p><b>Alt + Shift + f:</b> Change font type</p>
 		<p><b>Alt + Shift + p:</b> Change background color and font color preset</p>
-		<p><b>Alt + Shift + s:</b> Save the current state. To recover just use the url provided</p>
+		<p><b>Alt + Shift + s:</b> Save the current state to the url</p>
 	</div>
 </body>
 
