@@ -1,0 +1,3 @@
+use mutationobserver https://developer.mozilla.org/en/docs/Web/API/MutationObserver
+border color
+unfocus for inactivity, focus for activity
