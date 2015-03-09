@@ -3,24 +3,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
-	<title></title>
-	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-	<script src="mousetrap.min.js"></script>
-	<script src="jquery.copycss.js"></script>
-	<script src="jquery.base64.js"></script>
+  <title>Fit-text-to-screen</title>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script src="mousetrap.min.js"></script>
+  <script src="jquery.copycss.js"></script>
+  <script src="jquery.base64.js"></script>
 
-	<script type="text/javascript">
+  <script type="text/javascript">
 
-		var aligns = ["left", "right", "center"];
-		var fonts = ["Georgia", "Book Antiqua", "Times New Roman", "Arial", "Arial Black", "Comic Sans MS", "Impact", "Lucida Sans Unicode", "Tahoma", "Trebuchet MS", "Verdana", "Courier New", "Lucida Console"];
-		var colors = ["white", "silver", "gray", "black", "red", "maroon", "yellow", "olive", "lime", "green", "aqua", "teal", "blue", "navy", "fuchsia", "purple"];
-		var bcolors = ["silver", "gray", "black", "red", "maroon", "yellow", "olive", "lime", "green", "aqua", "teal", "blue", "navy", "fuchsia", "purple", "white"];
-		var presets = ["black;white", "white;#4183c4","#DEB887;#B22222", "#D08040;#FFD8B0","#87CEFA;#008080", "#FFD8B0;#D08040", "#C0B860;#506830", "white;black"];
+    var aligns = ["left", "right", "center"];
+    var fonts = ["Georgia", "Book Antiqua", "Times New Roman", "Arial", "Arial Black", "Comic Sans MS", "Impact", "Lucida Sans Unicode", "Tahoma", "Trebuchet MS", "Verdana", "Courier New", "Lucida Console"];
+    var colors = ["white", "silver", "gray", "black", "red", "maroon", "yellow", "olive", "lime", "green", "aqua", "teal", "blue", "navy", "fuchsia", "purple"];
+    var bcolors = ["silver", "gray", "black", "red", "maroon", "yellow", "olive", "lime", "green", "aqua", "teal", "blue", "navy", "fuchsia", "purple", "white"];
+    var presets = ["black;white", "white;#4183c4","#DEB887;#B22222", "#D08040;#FFD8B0","#87CEFA;#008080", "#FFD8B0;#D08040", "#C0B860;#506830", "white;black"];
 
-
-
-		$(document).ready(function(){
+    $(document).ready(function(){
       
       initialSetup = function(){
         $("textarea").get(0).style.width = $(window).width() + "px";
@@ -31,96 +29,96 @@
       
       window.onresize = initialSetup;
 
-			Mousetrap.bind(["alt+shift+right"], function() {
-				$("textarea").css("letter-spacing", "+=1");
-				showStatus("letter-spacing: " + $("textarea").css("letter-spacing"));
-			});
-			Mousetrap.bind(["alt+shift+left"], function() {
-				$("textarea").css("letter-spacing", "-=1");
-				showStatus("letter-spacing: " + $("textarea").css("letter-spacing"));
-			});
+      Mousetrap.bind(["alt+shift+right"], function() {
+        $("textarea").css("letter-spacing", "+=1");
+        showStatus("letter-spacing: " + $("textarea").css("letter-spacing"));
+      });
+      Mousetrap.bind(["alt+shift+left"], function() {
+        $("textarea").css("letter-spacing", "-=1");
+        showStatus("letter-spacing: " + $("textarea").css("letter-spacing"));
+      });
 
-			Mousetrap.bind(["alt+shift+up"], function() {
-				$("textarea").css("word-spacing", "+=1");
-				showStatus("word-spacing: " + $("textarea").css("word-spacing"));
-			});
-			Mousetrap.bind(["alt+shift+down"], function() {
-				$("textarea").css("word-spacing", "-=1");
-				showStatus("word-spacing: " + $("textarea").css("word-spacing"));
-			});
-  
-			Mousetrap.bind(["alt+shift+9"], function() {
-				$("textarea").css("width", "-=2").css("left", "+=1");
+      Mousetrap.bind(["alt+shift+up"], function() {
+        $("textarea").css("word-spacing", "+=1");
+        showStatus("word-spacing: " + $("textarea").css("word-spacing"));
+      });
+      Mousetrap.bind(["alt+shift+down"], function() {
+        $("textarea").css("word-spacing", "-=1");
+        showStatus("word-spacing: " + $("textarea").css("word-spacing"));
+      });
+
+      Mousetrap.bind(["alt+shift+9"], function() {
+        $("textarea").css("width", "-=2").css("left", "+=1");
         showStatus("width: " + $("textarea").css("width"));
-			});
-			Mousetrap.bind(["alt+shift+0"], function() {
-				$("textarea").css("width", "+=2").css("left", "-=1");
+      });
+      Mousetrap.bind(["alt+shift+0"], function() {
+        $("textarea").css("width", "+=2").css("left", "-=1");
         showStatus("width: " + $("textarea").css("width"));
-			});
-			Mousetrap.bind(["alt+shift+7"], function() {
-				$("textarea").css("height", "-=2").css("top", "+=1");
+      });
+      Mousetrap.bind(["alt+shift+7"], function() {
+        $("textarea").css("height", "-=2").css("top", "+=1");
         showStatus("height: " + $("textarea").css("height"));
-			});
-			Mousetrap.bind(["alt+shift+8"], function() {
-				$("textarea").css("height", "+=2").css("top", "-=1");
+      });
+      Mousetrap.bind(["alt+shift+8"], function() {
+        $("textarea").css("height", "+=2").css("top", "-=1");
         showStatus("height: " + $("textarea").css("height"));				
-			});      
+      });      
             
 
-			Mousetrap.bind(["alt+shift+a"], function() {
+      Mousetrap.bind(["alt+shift+a"], function() {
 
-				align = aligns.shift();
-				$("textarea").css("text-align", align);
-				aligns.push(align);
+        align = aligns.shift();
+        $("textarea").css("text-align", align);
+        aligns.push(align);
 
-				showStatus("text-align: " + $("textarea").css("text-align"));
-			});
+        showStatus("text-align: " + $("textarea").css("text-align"));
+      });
 
-			Mousetrap.bind(["alt+shift+f"], function() {
+      Mousetrap.bind(["alt+shift+f"], function() {
 
-				font = fonts.shift();
-				$("textarea").css("font-family", font);
-				fonts.push(font);
+        font = fonts.shift();
+        $("textarea").css("font-family", font);
+        fonts.push(font);
 
-				showStatus("font-family: " + $('textarea').css("font-family"));
-			});
+        showStatus("font-family: " + $('textarea').css("font-family"));
+      });
 
-			Mousetrap.bind(["alt+shift+c"], function() {
+      Mousetrap.bind(["alt+shift+c"], function() {
 
-				color = colors.shift();
-				$("textarea").css("color", color);
-				colors.push(color);
+        color = colors.shift();
+        $("textarea").css("color", color);
+        colors.push(color);
 
-				showStatus("color: " + color);
-			});
+        showStatus("color: " + color);
+      });
 
-			Mousetrap.bind(["alt+shift+b"], function() {
+      Mousetrap.bind(["alt+shift+b"], function() {
 
-				bcolor = bcolors.shift();
-				$("textarea").css("background-color", bcolor);
-				bcolors.push(bcolor);
+	bcolor = bcolors.shift();
+	$("textarea").css("background-color", bcolor);
+	bcolors.push(bcolor);
 
-				showStatus("background-color: " + bcolor);
-			});
+        showStatus("background-color: " + bcolor);
+      });
 
-			Mousetrap.bind(["alt+shift+h"], function() {
-				$("#help").toggle();
-			});
+      Mousetrap.bind(["alt+shift+h"], function() {
+        $("#help").toggle();
+      });
 
-			Mousetrap.bind(["alt+shift+p"], function() {
+      Mousetrap.bind(["alt+shift+p"], function() {
 
-				preset = presets.shift();
-				$("textarea").css("background-color", preset.split(";")[0]);
-				$("textarea").css("color", preset.split(";")[1]);
-				presets.push(preset);
+        preset = presets.shift();
+        $("textarea").css("background-color", preset.split(";")[0]);
+        $("textarea").css("color", preset.split(";")[1]);
+        presets.push(preset);
 
-				showStatus("preset: " + preset);
-			});
+        showStatus("preset: " + preset);
+      });
 
-			Mousetrap.bind(["alt+shift+s"], function() {
-				window.location.hash = ftsData.build();
-				showStatus("Saved");
-			});
+      Mousetrap.bind(["alt+shift+s"], function() {
+        window.location.hash = ftsData.build();
+        showStatus("Saved");
+      });
 
 
       ftsData = (function() {
@@ -130,8 +128,7 @@
         var p = {};
 
         p.build = function() {
-          var opts = {textarea: textArea.val(),
-                      styles: textArea.getStyles(persist)};
+          var opts = {textarea: textArea.val(), styles: textArea.getStyles(persist)};
           var optString = JSON.stringify(opts);
           return $.base64.encode(optString);
         };
@@ -162,143 +159,143 @@
       ftsData.apply();
       window.location.hash = "";
 
-			setTimeout(adjust, 1);
+      setTimeout(adjust, 1);
 
-			holder = document.getElementById("holder");
-			holder.ondragover = function () {  return false; };
-			holder.ondragend = function () { return false; };
+      holder = document.getElementById("holder");
+      holder.ondragover = function () {  return false; };
+      holder.ondragend = function () { return false; };
 
-			holder.ondrop = function (e) {
+      holder.ondrop = function (e) {
 
-				e.preventDefault();
+        e.preventDefault();
 
-				file = e.dataTransfer.files[0];
-				reader = new FileReader();
+        file = e.dataTransfer.files[0];
+        reader = new FileReader();
 
-				reader.onload = function (event) {
+        reader.onload = function (event) {
 
-					stag = document.getElementById("f");
+          stag = document.getElementById("f");
 
-					node = document.createTextNode("@font-face {font-family: 'fs';src: url('" + event.target.result + "') format('truetype');} textarea{ font-family: fs; }");
+          node = document.createTextNode("@font-face {font-family: 'fs';src: url('" + event.target.result + "') format('truetype');} textarea{ font-family: fs; }");
 
-					if(stag.childNodes.length == 0){
-						stag.appendChild(node);
-					}else{
-						stag.replaceChild(node, stag.childNodes[0]);
-					}
+          if(stag.childNodes.length == 0){
+            stag.appendChild(node);
+          }else{
+            stag.replaceChild(node, stag.childNodes[0]);
+          }
+          
+          $("textarea").css('font-family', "fs");
+        };
 
-				};
+        reader.readAsDataURL(file);
 
-				reader.readAsDataURL(file);
+        return false;
+      };
+      
+    });
 
-				return false;
-			};
-		});
-
-		function adjust(){
+    function adjust(){
 
       if($("textarea").get(0).scrollWidth == $('textarea').width() &&
-			$("textarea").get(0).scrollHeight == $('textarea').height()
-			){
-				$("textarea").css("font-size", "+=2");
-			}
+                $("textarea").get(0).scrollHeight == $('textarea').height()
+      ){
+        $("textarea").css("font-size", "+=2");
+      }
 
       if($("textarea").get(0).scrollWidth > $('textarea').width()||
-			$("textarea").get(0).scrollHeight > $('textarea').height()
-			){
-				$("textarea").css("font-size", "-=2");
-			}
+                      $("textarea").get(0).scrollHeight > $('textarea').height()
+       ){
+        $("textarea").css("font-size", "-=2");
+      }
 
-			setTimeout(adjust, 1);
-		}
+      setTimeout(adjust, 1);
+    }
 
-		function showStatus(status){
-			$("#status").empty();
-			$("#status").append(status);
-			$("#status").fadeIn("slow", function(){$(this).fadeOut("slow");});
-		}
+    function showStatus(status){
+      $("#status").empty();
+      $("#status").append(status);
+      $("#status").fadeIn("slow", function(){$(this).fadeOut("slow");});
+    }
 
-	</script>
+  </script>
 
-	<style>
-		body{
-			width:100%;
-			height:100%;
-			margin:0px;
-			padding:0px;
-			border:0px;
-			overflow:hidden;
-		}
-		textarea{
-			position:absolute;
-			border:none;
-			padding:0;
-			font-size: 30px;
-			text-align: center;
+  <style>
+    body{
+      width:100%;
+      height:100%;
+      margin:0px;
+      padding:0px;
+      border:0px;
+      overflow:hidden;
+    }
+    textarea{
+      position:absolute;
+      border:none;
+      padding:0;
+      font-size: 30px;
+      text-align: center;
       resize: none;
-		}
-    
+    }
+      
     textarea:focus{
       outline: 0 none;
     }
-		#status{
-			width: 150px;
-			position: absolute;
-			right: 0px;
-			padding: 10px;
-			text-align: center;
-			display: none;
-			background-color: gray;
-			color: white;
-		}
-		#help{
-			width: 230px;
-			position: absolute;
-			right: 0px;
-			padding: 0px 10px 10px 20px;
-			display: block;
-			background-color: gray;
-			color: white;
-			font-size: 12px;
-			line-height: 12px;
-			display: none;
-		}
-		#help h4{
-			text-align: center;
-			font-size: 15px;
-		}
-	</style>
-
-
-	<style id="f"></style>
-
+    #status{
+      width: 150px;
+      position: absolute;
+      right: 0px;
+      padding: 10px;
+      text-align: center;
+      display: none;
+      background-color: gray;
+      color: white;
+    }
+    #help{
+      width: 230px;
+      position: absolute;
+      right: 0px;
+      padding: 0px 10px 10px 20px;
+      display: block;
+      background-color: gray;
+      color: white;
+      font-size: 12px;
+      line-height: 12px;
+      display: none;
+    }
+    #help h4{
+      text-align: center;
+      font-size: 15px;
+    }
+  </style>
+  
+  <style id="f"></style>
 </head>
 
 <body>
 
-	<textarea id="holder" class="hover mousetrap" wrap="off" spellcheck="false">Just type anything here and your
+  <textarea id="holder" class="hover mousetrap" wrap="off" spellcheck="false">Just type anything here and your
 text will fit the screen as you type.
 
 To change the font, just drag
 the font file into this textarea
 
 For help: Alt + Shift + h
-	</textarea>
-	<div id="status"></div>
-	<div id="help">
-		<h4><b>Shortcut list</b></h4>
-		<p><b>Alt + Shift + h:</b> Show/Hide this help box</p>
-		<p><b>Alt + Shift + Up/Down:</b> Word spacing</p>
-		<p><b>Alt + Shift + Left/Right:</b> Letter spacing</p>
+  </textarea>
+  <div id="status"></div>
+  <div id="help">
+    <h4><b>Shortcut list</b></h4>
+    <p><b>Alt + Shift + h:</b> Show/Hide this help box</p>
+    <p><b>Alt + Shift + Up/Down:</b> Word spacing</p>
+    <p><b>Alt + Shift + Left/Right:</b> Letter spacing</p>
     <p><b>Alt + Shift + 9/0:</b> Width </p>
     <p><b>Alt + Shift + 7/8:</b> Height </p>
-		<p><b>Alt + Shift + a:</b> Change text alignment</p>
-		<p><b>Alt + Shift + c:</b> Change font color</p>
-		<p><b>Alt + Shift + b:</b> Change background color</p>
-		<p><b>Alt + Shift + f:</b> Change font type</p>
-		<p><b>Alt + Shift + p:</b> Change background color and font color preset</p>
-		<p><b>Alt + Shift + s:</b> Save the current state to the url</p>
-	</div>
+    <p><b>Alt + Shift + a:</b> Change text alignment</p>
+    <p><b>Alt + Shift + c:</b> Change font color</p>
+    <p><b>Alt + Shift + b:</b> Change background color</p>
+    <p><b>Alt + Shift + f:</b> Change font type</p>
+    <p><b>Alt + Shift + p:</b> Change background color and font color preset</p>
+    <p><b>Alt + Shift + s:</b> Save the current state to the url</p>
+  </div>
 </body>
 
 </html>
